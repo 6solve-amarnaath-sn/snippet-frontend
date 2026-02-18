@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
 import toast from "react-hot-toast";
 import api from "@/lib/axios";
 import { User, ArrowLeft, Calendar, Code2 } from "lucide-react";
@@ -20,7 +20,6 @@ export default function SnippetDetails() {
     try {
       setLoading(true);
       const res = await api.get(`/snippet/${id}`);
-      console.log(new Date(res.data.createdAt));
       const formattedSnippet = {
         ...res.data,
         createdAt: new Date(res.data.createdAt).toLocaleDateString("en-US", {
@@ -45,7 +44,7 @@ export default function SnippetDetails() {
   if (loading) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center">
-        <div className="h-12 w-12 animate-spin rounded-full border-t-2 border-b-2 border-blue-600"></div>
+        <div className="h-12 w-12 animate-spin rounded-full border-t-2 border-b-2 border-indigo-600"></div>
       </div>
     );
   }
@@ -53,11 +52,11 @@ export default function SnippetDetails() {
   if (!snippet) return null;
 
   return (
-    <div className="min-h-screen bg-gray-50 px-4 py-8 sm:px-6 dark:bg-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 px-4 py-8 sm:px-6">
       <div className="mx-auto max-w-5xl">
         <button
           onClick={() => router.back()}
-          className="group mb-6 flex items-center gap-2 text-gray-500 transition-colors hover:text-blue-600"
+          className="group mb-8 flex items-center gap-2 text-slate-500 transition-colors hover:text-indigo-600 rounded-lg px-3 py-2 hover:bg-white/50"
         >
           <ArrowLeft
             size={18}
@@ -66,22 +65,22 @@ export default function SnippetDetails() {
           <span className="text-sm font-medium">Back to Snippets</span>
         </button>
 
-        <div className="mb-6 rounded-xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-start">
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <span className="rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-bold tracking-wider text-blue-700 uppercase dark:bg-blue-900/30 dark:text-blue-300">
+        <div className="mb-8 rounded-2xl border border-indigo-100 bg-white/80 backdrop-blur-sm p-4 sm:p-6 md:p-8 shadow-xl shadow-indigo-100/20">
+          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-start">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <span className="rounded-full bg-indigo-50 border border-indigo-100 px-3 py-1 text-xs font-bold tracking-wide text-indigo-700 uppercase">
                   {snippet.language}
                 </span>
-                <span className="flex items-center gap-1 text-xs text-gray-400">
-                  <Calendar size={12} />
+                <span className="flex items-center gap-1.5 text-xs font-medium text-slate-400">
+                  <Calendar size={14} />
                   {snippet.createdAt}
                 </span>
               </div>
-              <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 md:text-4xl dark:text-white">
+              <h1 className="text-2xl font-black tracking-tight text-slate-900 sm:text-3xl md:text-5xl">
                 {snippet.title}
               </h1>
-              <p className="max-w-3xl text-lg leading-relaxed text-gray-600 dark:text-gray-400">
+              <p className="max-w-3xl text-lg leading-relaxed text-slate-600">
                 {snippet.description}
               </p>
             </div>
@@ -91,16 +90,16 @@ export default function SnippetDetails() {
             </div>
           </div>
 
-          <div className="mt-6 flex items-center gap-4 border-t border-gray-100 pt-6 dark:border-gray-700">
-            <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 text-white shadow-sm">
+          <div className="mt-8 flex items-center gap-4 border-t border-slate-100 pt-6">
+            <div className="flex items-center gap-3">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 text-white shadow-md shadow-indigo-200">
                 <User size={20} />
               </div>
               <div>
-                <p className="text-xs font-medium text-gray-500 dark:text-gray-500">
+                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
                   Author
                 </p>
-                <p className="text-sm font-bold">
+                <p className="text-base font-bold text-slate-900">
                   {snippet.author?.name || "Anonymous"}
                 </p>
               </div>
@@ -108,37 +107,38 @@ export default function SnippetDetails() {
           </div>
         </div>
 
-        <div className="group relative overflow-hidden rounded-xl border border-gray-200 shadow-lg dark:border-gray-700">
-          <div className="flex items-center justify-between border-b border-gray-800 bg-[#1e1e1e] px-4 py-3">
-            <div className="flex items-center gap-2">
-              <div className="flex gap-1.5">
-                <div className="h-3 w-3 rounded-full bg-red-500/80" />
-                <div className="h-3 w-3 rounded-full bg-yellow-500/80" />
-                <div className="h-3 w-3 rounded-full bg-green-500/80" />
+        <div className="group relative overflow-hidden rounded-2xl border border-slate-200 shadow-2xl shadow-indigo-100/50 bg-white">
+          <div className="flex items-center justify-between border-b border-slate-100 bg-slate-50/50 px-6 py-4">
+            <div className="flex items-center gap-4">
+              <div className="flex gap-2">
+                <div className="h-3 w-3 rounded-full bg-red-400" />
+                <div className="h-3 w-3 rounded-full bg-amber-400" />
+                <div className="h-3 w-3 rounded-full bg-emerald-400" />
               </div>
-              <span className="ml-4 flex items-center gap-1.5 font-mono text-xs text-gray-400">
-                <Code2 size={14} />
+              <span className="ml-2 flex items-center gap-2 font-mono text-xs font-medium text-slate-500">
+                <Code2 size={14} className="text-indigo-400" />
                 {snippet.language.toLowerCase()}
               </span>
             </div>
           </div>
 
-          <div className="text-sm md:text-base">
+          <div className="text-xs sm:text-sm md:text-base bg-white overflow-x-auto">
             <SyntaxHighlighter
               language={snippet.language.toLowerCase()}
-              style={oneDark}
+              style={oneLight}
               showLineNumbers={true}
               lineNumberStyle={{
                 minWidth: "3em",
                 paddingRight: "1em",
-                color: "#4b5563",
+                color: "#cbd5e1",
+                textAlign: "right",
               }}
               customStyle={{
                 margin: 0,
-                padding: "1.5rem",
-                fontSize: "0.95rem",
+                padding: "1rem",
+                fontSize: "0.8rem",
                 lineHeight: "1.6",
-                background: "#1e1e1e",
+                background: "transparent",
               }}
             >
               {snippet.code}

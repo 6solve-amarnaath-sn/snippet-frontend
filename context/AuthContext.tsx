@@ -13,6 +13,7 @@ export type UserRole = "admin" | "moderator" | "user";
 
 export interface User {
   id: number;
+  name: string;
   role: UserRole;
 }
 
@@ -37,7 +38,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         localStorage.removeItem("token");
         return null;
       }
-      return { id: payload.id, role: payload.role };
+      return { id: payload.id, name: payload.name, role: payload.role };
     } catch (error) {
       console.error("Invalid token:", error);
       localStorage.removeItem("token");

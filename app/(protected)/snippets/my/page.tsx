@@ -47,7 +47,7 @@ export default function MySnippets() {
               <div className="rounded-lg bg-indigo-100 p-2 text-indigo-600">
                 <FolderCode size={24} />
               </div>
-              <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
+              <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-gray-900">
                 My Snippets
               </h1>
             </div>

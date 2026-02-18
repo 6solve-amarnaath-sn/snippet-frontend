@@ -18,7 +18,7 @@ export default function ModeratorPage() {
 
   useEffect(() => {
     if (!loading && user?.role !== "moderator" && user?.role !== "admin") {
-      router.push("/dashboard");
+      router.push("/snippets");
     }
   }, [user, loading, router]);
 

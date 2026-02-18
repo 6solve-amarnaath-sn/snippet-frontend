@@ -62,7 +62,7 @@ export default function SnippetsPage() {
             <div className="mb-2 inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-bold tracking-wider text-blue-600 uppercase">
               Community Library
             </div>
-            <h1 className="text-5xl font-black tracking-tight text-gray-900">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-gray-900">
               Public <span className="text-blue-600">Snippets</span>
             </h1>
             <p className="max-w-md text-lg text-gray-500">
