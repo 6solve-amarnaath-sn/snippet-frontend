@@ -13,7 +13,7 @@ const Navbar = () => {
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
-  // Hide Navbar on protected routes where Sidebar is used
+  
   if (
     ["/snippets", "/admin", "/moderator"].some((path) =>
       pathname?.startsWith(path),

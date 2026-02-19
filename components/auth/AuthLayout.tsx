@@ -1,57 +1,62 @@
 "use client";
 
-import img from "@/public/img.jpg";
-
 interface AuthLayoutProps {
-    children: React.ReactNode;
-    title: string;
-    description: string;
+  children: React.ReactNode;
+  title: string;
+  description: string;
 }
 
 export default function AuthLayout({ children, title, description }: AuthLayoutProps) {
+  return (
+    <div className="relative flex min-h-screen w-full items-center justify-center overflow-hidden px-4 py-12 bg-[#F8FAFC]">
+      
+    
+      <div className="absolute top-[-5%] left-[-5%] w-[45%] h-[45%] rounded-full bg-indigo-100/60 blur-[120px] animate-pulse" />
+      <div className="absolute bottom-[-5%] right-[-5%] w-[45%] h-[45%] rounded-full bg-purple-100/60 blur-[120px]" />
+      
+ 
+      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 pointer-events-none"></div>
 
-    return (
-        <div className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-gradient-to-br from-indigo-50 via-white to-purple-50 px-4 py-6 md:py-12">
+      <div className="relative w-full max-w-[440px]">
 
+        <div className="relative bg-white/80 backdrop-blur-2xl border border-white/50 rounded-3xl shadow-[0_20px_50px_rgba(79,70,229,0.05)] px-8 py-10 md:px-10">
+          
+       
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[4px] rounded-b-full bg-gradient-to-r from-indigo-500 to-purple-500 shadow-sm shadow-indigo-200" />
 
-            <div className="relative flex w-full max-w-[1000px] overflow-hidden rounded-2xl bg-white/10 shadow-2xl ring-1 ring-white/20 backdrop-blur-xl">
-
-
-                <div className="flex w-full flex-col justify-center bg-white px-6 py-8 backdrop-blur-sm sm:px-8 sm:py-12 lg:w-1/2 lg:px-12">
-                    <div className="mx-auto w-full max-w-sm">
-                        <div className="mb-6 sm:mb-8 text-center lg:text-left">
-                            <h1 className="mb-2 text-2xl sm:text-3xl font-bold tracking-tight text-gray-900">{title}</h1>
-                            <p className="text-gray-600 font-medium">{description}</p>
-                        </div>
-                        {children}
-                    </div>
-                </div>
-
-
-                <div
-                    className="hidden w-1/2 relative lg:flex flex-col items-center justify-center p-12 text-center text-white backdrop-blur-md"
-                    style={{
-                        backgroundImage: `url(${img.src})`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center"
-                    }}
-                >
-
-                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/50 via-black/50 to-purple-900/50 opacity-80 z-0"></div>
-                    <div className="absolute inset-0 bg-white opacity-20 mix-blend-overlay pointer-events-none z-0"></div>
-
-
-                    <div className="absolute top-1/4 left-1/4 h-32 w-32 rounded-full bg-purple-500/30 blur-2xl animate-pulse z-0"></div>
-                    <div className="absolute bottom-1/4 right-1/4 h-48 w-48 rounded-full bg-indigo-500/30 blur-2xl animate-pulse delay-1000 z-0"></div>
-
-                    <div className="relative z-10 max-w-md">
-                        <h2 className="mb-4 text-4xl font-bold tracking-wide drop-shadow-lg">SourceStash</h2>
-                        <p className="text-lg text-gray-200 drop-shadow-md">
-                            Manage your code snippets efficiently. <br /> Secure, fast, and always accessible.
-                        </p>
-                    </div>
-                </div>
+      
+          <div className="flex items-center gap-3 mb-10">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 to-indigo-700 flex items-center justify-center shadow-lg shadow-indigo-200 text-white text-sm font-bold font-mono">
+              {">_"}
             </div>
+            <span className="text-xl font-black tracking-tight text-slate-900">
+              SourceStash
+            </span>
+          </div>
+
+
+          <div className="mb-8">
+            <h1 className="text-2xl font-bold text-slate-900 mb-2 tracking-tight">
+              {title}
+            </h1>
+            <p className="text-slate-500 text-[15px] leading-relaxed">
+              {description}
+            </p>
+          </div>
+
+        
+          <div className="relative z-10">
+            {children}
+          </div>
         </div>
-    );
+        
+      
+        <div className="mt-8 text-center">
+           <p className="text-xs text-slate-400 font-medium tracking-wide">
+             &copy; {new Date().getFullYear()} SourceStash Inc.
+           </p>
+        </div>
+      </div>
+    </div>
+  );
 }

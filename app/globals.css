@@ -12,7 +12,7 @@
   --font-mono: var(--font-geist-mono);
 }
 
-/* Dark mode removed as per user request */
+
 
 body {
   background: var(--background);
@@ -50,3 +50,6 @@ body {
     animation-delay: 4s;
   }
 }
+
+
+
