@@ -8,6 +8,8 @@ import { useState } from "react";
 import AuthLayout from "@/components/auth/AuthLayout";
 import Link from "next/link";
 import { Mail, Lock, ArrowRight, Loader2, AlertCircle } from "lucide-react";
+import { User } from "@/context/AuthContext";
+import { jwtDecode } from "jwt-decode";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -25,7 +27,7 @@ export default function Login() {
       const res = await api.post("/auth/login", { email, password });
       const token = res.data.token;
       localStorage.setItem("token", token);
-      const payload = JSON.parse(atob(token.split(".")[1]));
+      const payload:User = jwtDecode(token);
       setUser({ id: payload.id, name: payload.name, role: payload.role });
       router.push("/snippets");
     } catch (err: unknown) {
