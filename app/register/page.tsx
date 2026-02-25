@@ -8,7 +8,8 @@ import { ChangeEvent, SubmitEvent, useState } from "react";
 import Link from "next/link";
 import {
   Mail,
-  Lock,User as UserIcon,
+  Lock,
+  User as UserIcon,
   ArrowRight,
   AlertCircle,
   Loader2,
@@ -16,7 +17,6 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { jwtDecode } from "jwt-decode";
-
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -31,7 +31,6 @@ export default function RegisterPage() {
   };
 
   const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
-    
     e.preventDefault();
     setError(null);
     setLoading(true);
@@ -43,7 +42,6 @@ export default function RegisterPage() {
       setUser({ id: payload.id, name: payload.name, role: payload.role });
       router.push("/snippets");
     } catch (err: unknown) {
-      console.error(err)
       if (err instanceof AxiosError) {
         setError(
           err.response?.data?.msg ||
@@ -60,10 +58,7 @@ export default function RegisterPage() {
 
   return (
     <div className="flex min-h-screen bg-white">
-      <div className="relative hidden flex-col justify-between overflow-hidden bg-gradient-to-br from-slate-900 via-indigo-950 to-indigo-900 p-12 lg:flex lg:w-[40%]">
-        {/* <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-500/20 rounded-full -mr-48 -mt-48 blur-[120px]" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500/10 rounded-full -ml-48 -mb-48 blur-[120px]" /> */}
-
+      <div className="relative hidden flex-col justify-between overflow-hidden bg-linear-to-br from-slate-900 via-indigo-950 to-indigo-900 p-12 lg:flex lg:w-[40%]">
         <div className="relative z-10">
           <div className="mb-16 flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-500 font-mono font-bold text-white shadow-lg shadow-indigo-500/20">

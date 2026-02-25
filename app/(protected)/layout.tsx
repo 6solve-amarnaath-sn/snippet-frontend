@@ -28,7 +28,7 @@ export default function ProtectedLayout({
 
   return (
     <div className="flex min-h-screen bg-slate-50">
-      {/* Mobile Header */}
+     
       <div className="fixed top-0 left-0 right-0 z-30 flex items-center justify-between border-b border-slate-200 bg-white/80 backdrop-blur-md px-4 py-3 md:hidden">
         <button
           onClick={() => setMobileMenuOpen(true)}

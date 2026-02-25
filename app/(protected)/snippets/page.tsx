@@ -4,7 +4,7 @@ import api from "@/lib/axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { ghcolors } from "react-syntax-highlighter/dist/esm/styles/prism"; // Cleaner light theme
+import { ghcolors } from "react-syntax-highlighter/dist/esm/styles/prism";
 import {
   Search,
   Code2,
@@ -38,6 +38,9 @@ export default function SnippetsPage() {
   const fetchSnippets = async () => {
     setLoading(true);
     try {
+      if(search){
+        setPage(1);
+      }
       const res = await api.get(
         `/snippet?search=${search}&page=${page}&limit=6`,
       );

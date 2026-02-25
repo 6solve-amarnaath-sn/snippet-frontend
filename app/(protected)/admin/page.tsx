@@ -24,7 +24,7 @@ export default function AdminPage() {
   const [users, setUsers] = useState<User[]>([]);
   const [fetching, setFetching] = useState(true);
 
-  /* Role check handled by AdminLayout */
+ 
 
   useEffect(() => {
     fetchUsers();
@@ -73,7 +73,6 @@ export default function AdminPage() {
     }
   };
 
-  /* Loading state handled by AdminLayout */
 
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-8">

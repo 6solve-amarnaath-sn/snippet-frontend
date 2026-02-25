@@ -34,6 +34,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       const payload = jwtDecode<User & { exp: number }>(token);
       const currentTime = Date.now() / 1000;
+      console.log(payload.exp,"Current date =>",currentTime)
       if (payload.exp < currentTime) {
         localStorage.removeItem("token");
         return null;

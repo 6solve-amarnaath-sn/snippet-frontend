@@ -64,7 +64,7 @@ export default function EditSnippetPage() {
         const res = await api.get(`/snippet/${id}`);
         const data: Snippet = res.data;
 
-        if (data.userId !== user?.id) {
+        if (data.userId !== user?.id && user.role!=="admin") {
           toast.error("Unauthorized access");
           router.back();
           return;
@@ -105,7 +105,8 @@ export default function EditSnippetPage() {
       await api.put(`/snippet/${id}`, form);
       toast.success("Changes saved!");
       router.push("/snippets/my");
-    } catch {
+    } catch(error) {
+      console.log(error)
       toast.error("Update failed");
     } finally {
       setSubmitting(false);

@@ -10,13 +10,6 @@ export default function AuthLayout({ children, title, description }: AuthLayoutP
   return (
     <div className="relative flex min-h-screen w-full items-center justify-center overflow-hidden px-4 py-12 bg-[#F8FAFC]">
       
-    
-      <div className="absolute top-[-5%] left-[-5%] w-[45%] h-[45%] rounded-full bg-indigo-100/60 blur-[120px] animate-pulse" />
-      <div className="absolute bottom-[-5%] right-[-5%] w-[45%] h-[45%] rounded-full bg-purple-100/60 blur-[120px]" />
-      
- 
-      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 pointer-events-none"></div>
-
       <div className="relative w-full max-w-[440px]">
 
         <div className="relative bg-white/80 backdrop-blur-2xl border border-white/50 rounded-3xl shadow-[0_20px_50px_rgba(79,70,229,0.05)] px-8 py-10 md:px-10">
