@@ -8,8 +8,6 @@ import { useState } from "react";
 import AuthLayout from "@/components/auth/AuthLayout";
 import Link from "next/link";
 import { Mail, Lock, ArrowRight, Loader2, AlertCircle } from "lucide-react";
-import { User } from "@/context/AuthContext";
-import { jwtDecode } from "jwt-decode";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -17,7 +15,7 @@ export default function Login() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const { setUser } = useAuth();
+  const { loginWithToken } = useAuth();
 
   const handleLogin = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -26,9 +24,7 @@ export default function Login() {
     try {
       const res = await api.post("/auth/login", { email, password });
       const token = res.data.token;
-      localStorage.setItem("token", token);
-      const payload:User = jwtDecode(token);
-      setUser({ id: payload.id, name: payload.name, role: payload.role });
+      loginWithToken(token);
       router.push("/snippets");
     } catch (err: unknown) {
       if (err instanceof AxiosError) {
@@ -105,7 +101,7 @@ export default function Login() {
         <button
           type="submit"
           disabled={loading}
-          className="group relative w-full overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-600 to-purple-600 p-[1px] transition-all active:scale-[0.98] shadow-lg shadow-indigo-200 disabled:opacity-70 disabled:pointer-events-none"
+          className="group relative w-full overflow-hidden rounded-2xl bg-linear-to-br from-indigo-600 to-purple-600 p-px transition-all active:scale-[0.98] shadow-lg shadow-indigo-200 disabled:opacity-70 disabled:pointer-events-none"
         >
           <div className="relative flex items-center justify-center gap-2 bg-indigo-600 px-8 py-3.5 rounded-[15px] group-hover:bg-transparent transition-all">
             {loading ? (

@@ -22,6 +22,7 @@ interface AuthContextType {
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
   loading: boolean;
   logout: () => void;
+  loginWithToken:(token:string)=>void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -62,8 +63,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     window.location.href = "/login";
   };
 
+  const loginWithToken = (token: string) => {
+  localStorage.setItem("token", token);
+  const decoded = getUserFromToken(token);
+  setUser(decoded);
+};
+
   return (
-    <AuthContext.Provider value={{ user, setUser, loading, logout }}>
+    <AuthContext.Provider value={{ user, setUser, loading, logout, loginWithToken }}>
       {children}
     </AuthContext.Provider>
   );

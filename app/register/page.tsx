@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth, User } from "@/context/AuthContext";
+import { useAuth} from "@/context/AuthContext";
 import api from "@/lib/axios";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
@@ -16,11 +16,10 @@ import {
   Sparkles,
   CheckCircle2,
 } from "lucide-react";
-import { jwtDecode } from "jwt-decode";
 
 export default function RegisterPage() {
   const router = useRouter();
-  const { setUser } = useAuth();
+  const { loginWithToken } = useAuth();
 
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [error, setError] = useState<string | null>(null);
@@ -37,9 +36,7 @@ export default function RegisterPage() {
     try {
       const res = await api.post("/auth/register", form);
       const token = res.data.token;
-      localStorage.setItem("token", token);
-      const payload: User = jwtDecode(token);
-      setUser({ id: payload.id, name: payload.name, role: payload.role });
+      loginWithToken(token);
       router.push("/snippets");
     } catch (err: unknown) {
       if (err instanceof AxiosError) {
