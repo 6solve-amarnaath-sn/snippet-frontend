@@ -3,6 +3,7 @@
 import api from "@/lib/axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { ghcolors } from "react-syntax-highlighter/dist/esm/styles/prism";
 import {
@@ -29,20 +30,25 @@ interface Snippet {
 }
 
 export default function SnippetsPage() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [snippets, setSnippets] = useState<Snippet[]>([]);
-  const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1);
+  //const [search, setSearch] = useState("");
+  //const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
+
+  const page = Number(searchParams.get("page")) || 1;
+  const searchQuery = searchParams.get("search") || "";
+
+  const [search, setSearch] = useState(searchQuery);
 
   const fetchSnippets = async () => {
     setLoading(true);
     try {
-      if(search){
-        setPage(1);
-      }
       const res = await api.get(
-        `/snippet?search=${search}&page=${page}&limit=6`,
+        `/snippet?search=${searchQuery}&page=${page}&limit=6`,
       );
       setSnippets(res.data.snippets);
       setTotalPages(res.data.totalPages || 1);
@@ -53,14 +59,22 @@ export default function SnippetsPage() {
     }
   };
 
-  
+  const changePage = (newPage: number) => {
+    router.push(`/snippets?${searchQuery ? searchQuery : ""}page=${newPage}`);
+  };
   useEffect(() => {
     fetchSnippets();
-    setTimeout(()=>{
+    setTimeout(() => {
       window.scrollTo({ top: 0, behavior: "smooth" });
-    },50);
-    
-  }, [page]);
+    }, 50);
+  }, [page,searchQuery]);
+
+  const handleSearch = () => {
+    if (search === "") {
+      return;
+    }
+    router.push(`/snippets?search=${search}&page=1`);
+  };
 
   return (
     <div className="min-h-screen bg-[#fcfcfc] px-4 py-12 sm:px-6 lg:px-8">
@@ -70,7 +84,7 @@ export default function SnippetsPage() {
             <div className="mb-2 inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-bold tracking-wider text-blue-600 uppercase">
               Community Library
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-gray-900">
+            <h1 className="text-3xl font-black tracking-tight text-gray-900 sm:text-4xl md:text-5xl">
               Public <span className="text-blue-600">Snippets</span>
             </h1>
             <p className="max-w-md text-lg text-gray-500">
@@ -88,10 +102,10 @@ export default function SnippetsPage() {
               placeholder="Search by title or language..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && fetchSnippets()}
+              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
             />
             <button
-              onClick={fetchSnippets}
+              onClick={handleSearch}
               disabled={loading}
               className="absolute top-2 right-2 bottom-2 rounded-xl bg-gray-900 px-4 text-sm font-semibold text-white transition-all hover:bg-gray-800 active:scale-95 disabled:opacity-50"
             >
@@ -193,7 +207,7 @@ export default function SnippetsPage() {
           <div className="mt-16 flex items-center justify-center gap-6">
             <button
               disabled={page === 1 || loading}
-              onClick={() => setPage((p) => p - 1)}
+              onClick={() => changePage(page - 1)}
               className="rounded-full border border-gray-200 p-3 transition-all hover:bg-white hover:shadow-md disabled:opacity-30"
             >
               <ChevronLeft size={20} />
@@ -205,7 +219,7 @@ export default function SnippetsPage() {
 
             <button
               disabled={page === totalPages || loading}
-              onClick={() => setPage((p) => p + 1)}
+              onClick={() => changePage(page + 1)}
               className="rounded-full border border-gray-200 p-3 transition-all hover:bg-white hover:shadow-md disabled:opacity-30"
             >
               <ChevronRight size={20} />

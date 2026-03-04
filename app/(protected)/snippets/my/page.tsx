@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import api from "@/lib/axios";
+import { useRouter, useSearchParams } from "next/navigation";
 import SnippetCard from "@/components/SnippetCard";
 import {
   Plus,
@@ -15,13 +16,20 @@ import {
 import { Snippet } from "@/components/SnippetCard";
 
 export default function MySnippets() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [snippets, setSnippets] = useState<Snippet[]>([]);
-  const [page, setPage] = useState(1);
+  // const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
 
+  const page = Number(searchParams.get("page")) || 1;
   useEffect(() => {
     fetchMySnippets();
+    
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    
   }, [page]);
 
   const fetchMySnippets = async () => {
@@ -38,6 +46,10 @@ export default function MySnippets() {
     }
   };
 
+  const changePage = (newPage: number) => {
+    router.push(`/snippets/my?page=${newPage}`);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 px-4 py-10 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-5xl">
@@ -47,7 +59,7 @@ export default function MySnippets() {
               <div className="rounded-lg bg-indigo-100 p-2 text-indigo-600">
                 <FolderCode size={24} />
               </div>
-              <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-gray-900">
+              <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">
                 My Snippets
               </h1>
             </div>
@@ -87,7 +99,7 @@ export default function MySnippets() {
               <div className="mt-16 flex items-center justify-center gap-6">
                 <button
                   disabled={page === 1 || loading}
-                  onClick={() => setPage((p) => p - 1)}
+                  onClick={() => changePage(page - 1)}
                   className="rounded-full border border-gray-200 p-3 transition-all hover:bg-white hover:shadow-md disabled:opacity-30"
                 >
                   <ChevronLeft size={20} />
@@ -100,7 +112,7 @@ export default function MySnippets() {
 
                 <button
                   disabled={page === totalPages || loading}
-                  onClick={() => setPage((p) => p + 1)}
+                  onClick={() => changePage(page + 1)}
                   className="rounded-full border border-gray-200 p-3 transition-all hover:bg-white hover:shadow-md disabled:opacity-30"
                 >
                   <ChevronRight size={20} />

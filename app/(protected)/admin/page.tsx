@@ -44,7 +44,7 @@ export default function AdminPage() {
 
   const promote = async (id: number) => {
     try {
-      await api.put(`/admin/users/${id}/promote`);
+      await api.put(`/admin/users/promote/${id}`);
       toast.success("User promoted to Moderator");
       fetchUsers();
     } catch {
@@ -54,7 +54,7 @@ export default function AdminPage() {
 
   const demote = async (id: number) => {
     try {
-      await api.put(`/admin/users/${id}/demote`);
+      await api.put(`/admin/users/demote/${id}`);
       toast.success("User demoted");
       fetchUsers();
     } catch {

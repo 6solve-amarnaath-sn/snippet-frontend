@@ -51,7 +51,7 @@ export default function ModeratorPage() {
 
   const hideSnippet = async (id: number) => {
     try {
-      await api.put(`/moderator/snippets/${id}/togglesvisibility`);
+      await api.put(`/moderator/snippets/${id}/toggles-visibility`);
       setSnippets((prev) =>
         prev.map((s) =>
           s.id === id ? { ...s, moderatorHidden: !s.moderatorHidden } : s,
