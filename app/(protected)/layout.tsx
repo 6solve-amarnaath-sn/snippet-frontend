@@ -48,7 +48,7 @@ export default function ProtectedLayout({
       </div>
 
       <Sidebar mobileOpen={mobileMenuOpen} setMobileOpen={setMobileMenuOpen} />
-      <main className="flex-1 ml-0 md:ml-20 pt-16 md:pt-0 p-4 md:p-8 transition-all duration-300 ease-in-out">
+      <main className="flex-1 ml-0 md:ml-10 pt-16 md:pt-0 p-4 md:p-8 transition-all duration-300 ease-in-out">
         {children}
       </main>
     </div>

@@ -22,6 +22,7 @@ export interface Snippet {
   visibility: "public" | "private";
   language: string;
   createdAt: string;
+  moderatorHidden:boolean;
   author: User;
 }
 

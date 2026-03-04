@@ -93,7 +93,7 @@ export default function RegisterPage() {
       </div>
 
       <div className="flex flex-1 items-center justify-center bg-slate-50/50 p-8 md:p-16">
-        <div className="w-full max-w-[420px]">
+        <div className="w-full max-w-105">
           <div className="mb-8 flex items-center gap-2 lg:hidden">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 font-mono text-xs font-bold text-white">
               {">_"}

@@ -22,7 +22,7 @@ interface AuthContextType {
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
   loading: boolean;
   logout: () => void;
-  loginWithToken:(token:string)=>void;
+  loginWithToken: (token: string) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       const payload = jwtDecode<User & { exp: number }>(token);
       const currentTime = Date.now() / 1000;
-      console.log(payload.exp,"Current date =>",currentTime)
+      // console.log(payload.exp,"Current date =>",currentTime)
       if (payload.exp < currentTime) {
         localStorage.removeItem("token");
         return null;
@@ -64,13 +64,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const loginWithToken = (token: string) => {
-  localStorage.setItem("token", token);
-  const decoded = getUserFromToken(token);
-  setUser(decoded);
-};
+    localStorage.setItem("token", token);
+    const decoded = getUserFromToken(token);
+    setUser(decoded);
+  };
 
   return (
-    <AuthContext.Provider value={{ user, setUser, loading, logout, loginWithToken }}>
+    <AuthContext.Provider
+      value={{ user, setUser, loading, logout, loginWithToken }}
+    >
       {children}
     </AuthContext.Provider>
   );

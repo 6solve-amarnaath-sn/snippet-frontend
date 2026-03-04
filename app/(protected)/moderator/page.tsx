@@ -51,11 +51,16 @@ export default function ModeratorPage() {
 
   const hideSnippet = async (id: number) => {
     try {
-      await api.put(`/moderator/snippets/${id}/hide`);
-      toast.success("Snippet hidden from public");
-      fetchSnippets();
+      await api.put(`/moderator/snippets/${id}/togglesvisibility`);
+      setSnippets((prev) =>
+        prev.map((s) =>
+          s.id === id ? { ...s, moderatorHidden: !s.moderatorHidden } : s,
+        ),
+      );
+      toast.success("Visibility updated");
+      //fetchSnippets();
     } catch {
-      toast.error("Hide failed");
+       toast.error("Action failed");
     }
   };
 
@@ -101,29 +106,25 @@ export default function ModeratorPage() {
                 className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md"
               >
                 <div className="p-1">
-                  <SnippetCard snippet={snippet}  />
+                  <SnippetCard snippet={snippet} />
                 </div>
 
                 <div className="flex justify-end gap-3 border-t border-gray-100 bg-gray-50 p-4">
-                  {snippet.visibility === "private" ? (
-                    <p className="flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold text-amber-700 transition hover:bg-amber-100">
-                      Hidden
-                    </p>
-                  ) : (
-                    <button
-                      onClick={() => hideSnippet(snippet.id)}
-                      className="flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold text-amber-700 transition hover:bg-amber-100"
-                    >
-                      <EyeOff size={16} /> Hide
-                    </button>
-                  )}
-                  {user.role==="admin" && (
+                  <button
+                    onClick={() => hideSnippet(snippet.id)}
+                    className="flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold text-amber-700 transition hover:bg-amber-100"
+                  >
+                    <EyeOff size={16} />{" "}
+                    {snippet.moderatorHidden ? "Unhide" : "Hide"}
+                  </button>
+
+                  {user?.role === "admin" && (
                     <Link
-              href={`/snippets/${snippet.id}/edit`}
-              className="flex items-center gap-1.5 text-sm font-medium text-blue-600 transition hover:text-blue-700"
-            >
-              <Edit3 size={16} /> Edit
-            </Link>
+                      href={`/snippets/${snippet.id}/edit`}
+                      className="flex items-center gap-1.5 text-sm font-medium text-blue-600 transition hover:text-blue-700"
+                    >
+                      <Edit3 size={16} /> Edit
+                    </Link>
                   )}
                   <button
                     onClick={() => deleteSnippet(snippet.id)}

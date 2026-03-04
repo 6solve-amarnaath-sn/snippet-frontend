@@ -54,14 +54,14 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
             
             <div className="flex h-20 items-center justify-between border-b border-slate-100 px-4">
                 <div className="flex items-center gap-3 overflow-hidden whitespace-nowrap">
-                    <div className="flex-shrink-0 bg-gradient-to-br from-indigo-600 to-purple-600 p-2 rounded-xl shadow-lg shadow-indigo-200">
+                    <div className="shrink-0 bg-linear-to-br from-indigo-600 to-purple-600 p-2 rounded-xl shadow-lg shadow-indigo-200">
                         <Terminal size={24} className="text-white" />
                     </div>
                     <span
                         className={`font-extrabold text-xl tracking-tight transition-opacity duration-300 ${isMobile || isHovered ? "opacity-100" : "opacity-0 w-0"
                             }`}
                     >
-                        Source<span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Stash</span>
+                        Source<span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-purple-600">Stash</span>
                     </span>
                 </div>
                 {isMobile && (
@@ -91,7 +91,7 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
                         >
                             <Icon
                                 size={22}
-                                className={`flex-shrink-0 transition-transform duration-300 ${isActive ? "scale-110" : "group-hover:scale-110"
+                                className={`shrink-0 transition-transform duration-300 ${isActive ? "scale-110" : "group-hover:scale-110"
                                     }`}
                             />
                             <span
@@ -112,14 +112,14 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
      
             <div className="border-t border-slate-100 p-4 bg-slate-50/50">
                 <div className={`flex items-center gap-3 whitespace-nowrap overflow-hidden transition-all duration-300 ${isMobile || isHovered ? "justify-start" : "justify-center"}`}>
-                    <div className="flex-shrink-0 h-10 w-10 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold shadow-md ring-2 ring-white">
+                    <div className="shrink-0 h-10 w-10 bg-linear-to-tr from-indigo-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold shadow-md ring-2 ring-white">
                         {user.name ? user.name.charAt(0).toUpperCase() : <User size={18} />}
                     </div>
                     <div
                         className={`flex flex-col transition-all duration-300 ${isMobile || isHovered ? "opacity-100 w-auto" : "opacity-0 w-0"
                             }`}
                     >
-                        <span className="text-sm font-bold text-slate-800 truncate max-w-[120px]">
+                        <span className="text-sm font-bold text-slate-800 truncate max-w-30">
                             {user.name || "User"}
                         </span>
                         <span className="text-xs text-slate-500 capitalize">{user.role}</span>

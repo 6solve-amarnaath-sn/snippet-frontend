@@ -1,6 +1,5 @@
 "use client";
 
-import React from 'react';
 import Link from 'next/link';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
@@ -19,7 +18,7 @@ export default function HomePage() {
 }`;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 text-slate-900 selection:bg-indigo-100 selection:text-indigo-900">
+    <div className="min-h-screen bg-linear-to-br from-indigo-50 via-white to-purple-50 text-slate-900 selection:bg-indigo-100 selection:text-indigo-900">
 
 
       <header className="relative max-w-6xl mx-auto pt-32 pb-24 px-6 overflow-hidden">
@@ -36,7 +35,7 @@ export default function HomePage() {
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-black tracking-tight text-slate-900 drop-shadow-sm">
-            Source<span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Stash</span>
+            Source<span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-purple-600">Stash</span>
           </h1>
           <p className="text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-light">
             Don&apos;t let your best logic get lost in old git commits.
@@ -47,7 +46,7 @@ export default function HomePage() {
 
             <Link
               href="/snippets"
-              className="group w-full sm:w-auto flex items-center justify-center gap-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-8 py-4 rounded-2xl font-bold transition-all shadow-lg shadow-indigo-200 hover:shadow-xl hover:-translate-y-0.5"
+              className="group w-full sm:w-auto flex items-center justify-center gap-3 bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-8 py-4 rounded-2xl font-bold transition-all shadow-lg shadow-indigo-200 hover:shadow-xl hover:-translate-y-0.5"
             >
               Explore Public Snippets <Globe size={20} className="group-hover:rotate-12 transition-transform" />
             </Link>
@@ -65,7 +64,7 @@ export default function HomePage() {
       <section className="max-w-5xl mx-auto px-6 mb-32">
         <div className="relative group perspective-1000">
 
-          <div className="absolute -inset-1 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+          <div className="absolute -inset-1 bg-linear-to-r from-indigo-400 to-purple-400 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
 
           <div className="relative bg-white/80 backdrop-blur-xl border border-white/50 ring-1 ring-slate-900/5 rounded-2xl overflow-hidden shadow-2xl transform transition-transform duration-500 hover:scale-[1.01]">
             <div className="flex items-center justify-between px-6 py-4 bg-slate-50/80 border-b border-slate-100">
@@ -125,7 +124,7 @@ export default function HomePage() {
       <footer className="border-t border-indigo-100 py-16 px-6 bg-white/50 backdrop-blur-sm">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="flex items-center gap-3">
-            <div className="bg-gradient-to-br from-indigo-600 to-purple-600 p-2 rounded-xl shadow-lg shadow-indigo-200">
+            <div className="bg-linear-to-br from-indigo-600 to-purple-600 p-2 rounded-xl shadow-lg shadow-indigo-200">
               <Code2 size={24} className="text-white" />
             </div>
             <span className="font-extrabold text-slate-900 text-lg tracking-tight">SourceStash</span>

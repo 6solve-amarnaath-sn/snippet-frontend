@@ -53,8 +53,13 @@ export default function SnippetsPage() {
     }
   };
 
+  
   useEffect(() => {
     fetchSnippets();
+    setTimeout(()=>{
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    },50);
+    
   }, [page]);
 
   return (
@@ -95,7 +100,7 @@ export default function SnippetsPage() {
           </div>
         </header>
 
-        {loading && snippets.length === 0 ? (
+        {loading && page === 1 && snippets.length === 0 ? (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {[...Array(6)].map((_, i) => (
               <div
@@ -111,7 +116,7 @@ export default function SnippetsPage() {
                 key={snippet.id}
                 className="group flex flex-col rounded-3xl border border-gray-100 bg-white p-2 transition-all duration-500 hover:shadow-xl hover:shadow-blue-500/5"
               >
-                <div className="flex flex-grow flex-col rounded-[1.6rem] border border-transparent bg-gray-50/80 p-6 transition-colors group-hover:border-gray-100">
+                <div className="flex grow flex-col rounded-[1.6rem] border border-transparent bg-gray-50/80 p-6 transition-colors group-hover:border-gray-100">
                   <div className="mb-4 flex items-center justify-between">
                     <div className="rounded-xl bg-white p-2 shadow-sm">
                       <Code2 size={18} className="text-blue-500" />
@@ -147,7 +152,7 @@ export default function SnippetsPage() {
                       {snippet.code}
                     </SyntaxHighlighter>
 
-                    <div className="absolute inset-0 bg-gradient-to-t from-gray-50/80 via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-linear-to-t from-gray-50/80 via-transparent to-transparent" />
                   </div>
                 </div>
 
@@ -162,7 +167,7 @@ export default function SnippetsPage() {
                   </div>
                   <Link
                     href={`/snippets/${snippet.id}`}
-                    className="flex h-8 w-8 transform items-center justify-center rounded-full bg-gray-900 text-white transition-all group-hover:rotate-[-45deg] hover:bg-blue-600"
+                    className="flex h-8 w-8 transform items-center justify-center rounded-full bg-gray-900 text-white transition-all group-hover:-rotate-45 hover:bg-blue-600"
                   >
                     <ChevronRight size={16} />
                   </Link>

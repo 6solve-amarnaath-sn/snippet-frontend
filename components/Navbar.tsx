@@ -31,12 +31,12 @@ const Navbar = () => {
               href="/"
               className="flex items-center gap-2 text-xl font-bold tracking-tight text-slate-900 transition hover:opacity-80"
             >
-              <div className="rounded-lg bg-gradient-to-br from-indigo-600 to-purple-600 p-1.5 shadow-sm">
+              <div className="rounded-lg bg-linear-to-br from-indigo-600 to-purple-600 p-1.5 shadow-sm">
                 <Terminal size={18} className="text-white" />
               </div>
               <span>
                 Source
-                <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                   Stash
                 </span>
               </span>
@@ -55,7 +55,7 @@ const Navbar = () => {
                   </Link>
                   <Link
                     href="/snippets/create"
-                    className="rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-indigo-200 transition-all hover:-translate-y-0.5 hover:opacity-90 hover:shadow-lg"
+                    className="rounded-xl bg-linear-to-r from-indigo-600 to-purple-600 px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-indigo-200 transition-all hover:-translate-y-0.5 hover:opacity-90 hover:shadow-lg"
                   >
                     Create Snippet
                   </Link>
@@ -70,7 +70,7 @@ const Navbar = () => {
                   </Link>
                   <Link
                     href="/register"
-                    className="rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-indigo-200 transition-all hover:-translate-y-0.5 hover:opacity-90 hover:shadow-lg"
+                    className="rounded-xl bg-linear-to-r from-indigo-600 to-purple-600 px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-indigo-200 transition-all hover:-translate-y-0.5 hover:opacity-90 hover:shadow-lg"
                   >
                     Get Started
                   </Link>

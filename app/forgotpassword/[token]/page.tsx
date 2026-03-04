@@ -102,7 +102,7 @@ export default function ResetPassword() {
             ${
               isLoading
                 ? "bg-indigo-500/50 cursor-not-allowed"
-                : "bg-gradient-to-br from-indigo-500 to-purple-500 shadow-lg shadow-indigo-500/40 hover:opacity-95"
+                : "bg-linear-to-br from-indigo-500 to-purple-500 shadow-lg shadow-indigo-500/40 hover:opacity-95"
             }`}
         >
           {isLoading ? "Resetting..." : "Reset Password"}
