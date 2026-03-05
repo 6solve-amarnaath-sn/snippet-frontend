@@ -38,7 +38,8 @@ export default function SnippetsPage() {
   //const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
-
+  const [suggestions, setSuggestions] = useState<Snippet[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const page = Number(searchParams.get("page")) || 1;
   const searchQuery = searchParams.get("search") || "";
 
@@ -60,14 +61,42 @@ export default function SnippetsPage() {
   };
 
   const changePage = (newPage: number) => {
-    router.push(`/snippets?${searchQuery ? searchQuery : ""}page=${newPage}`);
+    const params = new URLSearchParams();
+
+    if (searchQuery) {
+      params.set("search", searchQuery);
+    }
+
+    params.set("page", newPage.toString());
+
+    router.push(`/snippets?${params.toString()}`);
   };
   useEffect(() => {
     fetchSnippets();
-    setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }, 50);
-  }, [page,searchQuery]);
+    // setTimeout(() => {
+    //   window.scrollTo({ top: 0, behavior: "smooth" });
+    // }, 50);
+  }, [page, searchQuery]);
+
+  useEffect(() => {
+  if (search.trim().length < 2) {
+    setSuggestions([]);
+    setShowSuggestions(false);
+    return;
+  }
+
+  const delay = setTimeout(async () => {
+    try {
+      const res = await api.get(`/snippet/suggestions?q=${search}`);
+      setSuggestions(res.data);
+      setShowSuggestions(true);
+    } catch {
+      console.error("Suggestion fetch failed");
+    }
+  }, 300);
+
+  return () => clearTimeout(delay);
+}, [search]);
 
   const handleSearch = () => {
     if (search === "") {
@@ -99,11 +128,30 @@ export default function SnippetsPage() {
             <input
               className="block w-full rounded-2xl border border-gray-200 bg-white py-3.5 pr-24 pl-10 text-gray-900 shadow-sm transition-all outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
               type="text"
+              onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
+              onFocus={() => search && setShowSuggestions(true)}
               placeholder="Search by title or language..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSearch()}
             />
+            {showSuggestions && suggestions.length > 0 && (
+              <div className="absolute z-99 mt-2 w-full rounded-xl border border-gray-200 bg-white shadow-lg">
+                {suggestions.map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => {
+                      setSearch(item.title);
+                      setShowSuggestions(false);
+                      router.push(`/snippets?search=${item.title}&page=1`);
+                    }}
+                    className="block w-full px-4 py-3 text-left text-sm hover:bg-gray-50"
+                  >
+                    {item.title}
+                  </button>
+                ))}
+              </div>
+            )}
             <button
               onClick={handleSearch}
               disabled={loading}
@@ -114,7 +162,7 @@ export default function SnippetsPage() {
           </div>
         </header>
 
-        {loading && page === 1 && snippets.length === 0 ? (
+        {loading && snippets.length === 0 ? (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {[...Array(6)].map((_, i) => (
               <div

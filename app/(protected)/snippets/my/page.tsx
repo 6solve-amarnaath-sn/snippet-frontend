@@ -27,8 +27,7 @@ export default function MySnippets() {
   const page = Number(searchParams.get("page")) || 1;
   useEffect(() => {
     fetchMySnippets();
-    
-      window.scrollTo({ top: 0, behavior: "smooth" });
+     // window.scrollTo({ top: 0, behavior: "smooth" });
     
   }, [page]);
 

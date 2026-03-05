@@ -46,7 +46,13 @@ export default function AdminPage() {
     try {
       await api.put(`/admin/users/promote/${id}`);
       toast.success("User promoted to Moderator");
-      fetchUsers();
+      //fetchUsers();
+      setUsers(users.map((u)=>{
+        if(u.id===id){
+          u.role="moderator";
+        }
+        return u;
+      }))
     } catch {
       toast.error("Failed to promote");
     }
@@ -56,7 +62,13 @@ export default function AdminPage() {
     try {
       await api.put(`/admin/users/demote/${id}`);
       toast.success("User demoted");
-      fetchUsers();
+      //fetchUsers();
+      setUsers(users.map((u)=>{
+        if(u.id===id){
+          u.role="user";
+        }
+        return u;
+      }))
     } catch {
       toast.error("Failed to demote");
     }
